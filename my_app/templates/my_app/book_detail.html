@@ -1,0 +1,129 @@
+{% extends 'my_app/base.html' %}
+{% load static %}
+{% block content %}
+    <main>
+    {% if book %}
+    <h1 style="color: aliceblue;margin-left: 5%;margin-top: 2%; margin-bottom: 2%;">    {{ book.title }}</h1>
+    <div class="book-info">
+      <div class="book-thumbnail">
+        <img src="{{ book.thumbnail }}" alt="Book Thumbnail">
+      </div>
+      <div class="book-details">
+        <p><strong>Authors:</strong> {{ book.authors|join:", " }}</p>
+        <p><strong>Categories:</strong> {{ book.categories|join:", " }}</p>
+        <p><strong>Publisher:</strong> {{ book.publisher }}</p>
+        <p><strong>Published Date:</strong> {{ book.published_date }}</p>
+        <p><strong>Rating :</strong> {{book.rating}} </p>
+        <p>
+          <strong>Page Count : </strong> {{book.page_count}} 
+        </p>
+        <button type="button" class="btn btn-dark"><p><a href="{{ book.preview_link }}" target="_blank">PREVIEW</a></p></button>
+        
+      </div>
+    </div>
+    <div style="padding: 3%;color: aliceblue;">
+    <p><strong>Description:</strong> {{ book.description| safe }}</p>
+    </div>
+      <div style="padding-bottom: 1%;">
+        <h2 style="color: aliceblue;font-weight: 600;padding-left: 5%;">More like this :</h2>
+      </div>
+        <div class="book-container">
+          {% for book in related_books %}
+            <div class="book"  >
+              <a href="{% url 'book_detail' book_id=book.book_id %}">
+              <div class="book-thumbnail">
+                <img src="{{ book.thumbnail }}" alt="Book Thumbnail" style="width: 100px; height: 150px; object-fit: cover;">
+              </div>
+              </a>
+              
+              <div class="book-details" style="margin-left: 0px;padding: 5px;">
+                <div>
+                <h4 style="margin-top: 0; margin-bottom: 5px;color: rgb(154, 177, 197);">{{ book.title|truncatechars:30 }}</h4>
+                </div>
+                <div>
+                <p style="margin-bottom: 5px;">Authors: {{ book.authors|join:", " | truncatechars:30 }}</p>
+                <p style="margin-bottom: 5px;">Category: {{ book.category| join:", " }}</p>
+                <p style="margin-bottom: 5px;">Published: {{ book.release_year }}</p>
+                </div>
+              </div>
+                
+            </div> 
+          {% endfor %}
+        </div>
+        {% else %}
+        <p>No books found.</p>
+    {% endif %}
+         </main>
+
+         <style>
+          p {
+            color: aliceblue;
+          }
+            .book-info {
+              display: flex;
+              align-items: center;
+              padding-left: 3%;
+              padding-right: 3%;
+            }
+          
+            .book-thumbnail {
+              margin-right: 20px;
+            }
+          
+            .book-thumbnail img {
+              width: 200px;
+              height: auto;
+            }
+          
+            .book-details {
+              font-size: 16px;
+            }
+          
+            .book-details p {
+              margin-bottom: 10px;
+            }
+          
+            .book-details strong {
+              font-weight: bold;
+            }
+          
+            .book-details a {
+              color: rgb(230, 230, 235);
+              text-decoration: none;
+            }
+
+  .book-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 30px;
+    margin-right: 20px;
+  }
+
+  .book {
+    display: flex;
+    align-items: center;
+    width: 440px;
+    height: 200px;
+    border-style: ridge;
+    margin-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 5px;
+    background: linear-gradient(to right, #525b5b, #171c20);
+    
+  }
+
+  @media (max-width: 768px) {
+    .book {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .book {
+      width: 100%;
+    }
+  } 
+          </style>
+{% endblock %}
+
