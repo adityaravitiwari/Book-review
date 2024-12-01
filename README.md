@@ -27,9 +27,6 @@ Bootstrap: CSS framework for responsive and visually appealing design.
 Git: Version control system for managing codebase and collaboration.
 GitHub: Hosting platform for the project repository.
 
-# Hosting 
-This site is hoste on python anywhere. You can access it on https://arvindfoujdar.pythonanywhere.com/ .
-
 # Usage
 Use the search bar to find books by title, author, or category.
 Click on a book to view its detailed information.
